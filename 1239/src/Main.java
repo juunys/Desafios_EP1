@@ -17,14 +17,15 @@ public class Main {
 			String word = input[0];
 			//char[] word = line.toCharArray();
 			//do something
-			int result = palindrome(word, k, 0, word.length());
+			int result = palindrome(word, k, 0, word.length()-1);
 			n--;
 			
-			System.out.println(line + " " + result);
+			System.out.println(result);
 		}
 	}
 	
 	public static int palindrome(String word, int k, int begin, int end) {
+		//System.out.println(word + " " + begin + " " + end);
 		if(word.length() == 1) return 1;
 		int result = -1;
 		int i = 0;
@@ -52,9 +53,10 @@ public class Main {
 			result = word.length();
 			return result;
 		} else {
-			int result1 = palindrome(word.substring(begin, end-1), k, begin, end-1);
-			//if(begin == end -1) return 1;
-			int result2 = palindrome(word.substring(begin+1), k, begin+1, end);
+			//System.out.println(word.substring(begin, end-1) + "    " + word.substring(begin+1, end));
+			int result1 = palindrome(word.substring(begin, end), k, begin, end-1);
+			//if(begin == end -1) return result1;
+			int result2 = palindrome(word.substring(begin+1, end+1), k, begin, end-1);
 			if(result1 >= result2) result = result1;
 			else result = result2;
 			
