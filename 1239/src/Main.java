@@ -17,7 +17,7 @@ public class Main {
 			String word = input[0];
 			//char[] word = line.toCharArray();
 			//do something
-			int result = palindrome(word, k, 0, line.length()-1);
+			int result = palindrome(word, k, 0, word.length());
 			n--;
 			
 			System.out.println(line + " " + result);
@@ -25,7 +25,7 @@ public class Main {
 	}
 	
 	public static int palindrome(String word, int k, int begin, int end) {
-		if(word.length() == 1 || begin >= end) return 1;
+		if(word.length() == 1) return 1;
 		int result = -1;
 		int i = 0;
 		int n = word.length() -1;
@@ -53,7 +53,8 @@ public class Main {
 			return result;
 		} else {
 			int result1 = palindrome(word.substring(begin, end-1), k, begin, end-1);
-			int result2 = palindrome(word.substring(begin+1, end), k, begin+1, end);
+			//if(begin == end -1) return 1;
+			int result2 = palindrome(word.substring(begin+1), k, begin+1, end);
 			if(result1 >= result2) result = result1;
 			else result = result2;
 			
