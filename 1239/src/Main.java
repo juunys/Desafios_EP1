@@ -3,6 +3,8 @@ import java.util.Scanner;
 
 public class Main {
 	
+	static int total = 0;
+	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		
@@ -17,17 +19,22 @@ public class Main {
 			String word = input[0];
 			//char[] word = line.toCharArray();
 			//do something
-			int result = palindrome(word, k, 0, word.length()-1);
+			palindrome(word, k, 0, word.length()-1);
 			n--;
 			
-			System.out.println(result);
+			System.out.println(total);
+			total = 0;
 		}
 	}
 	
-	public static int palindrome(String word, int k, int begin, int end) {
+	public static void palindrome(String word, int k, int begin, int end) {
 		//System.out.println(word + " " + begin + " " + end);
-		if(word.length() == 1) return 1;
-		int result = -1;
+		if(word.length() < total) return;
+		if(word.length() == 1) {
+			if(total == 0) total = 1;
+			return;
+		}
+		
 		int i = 0;
 		int n = word.length() -1;
 		char[] subs_word = word.toCharArray(); // Usado pra não alterar o original, caso precise analisar as substrings.
@@ -50,17 +57,12 @@ public class Main {
 		}
 		
 		if(!reduce) {
-			result = word.length();
-			return result;
+			total = word.length();
 		} else {
 			//System.out.println(word.substring(begin, end-1) + "    " + word.substring(begin+1, end));
-			int result1 = palindrome(word.substring(begin, end), k, begin, end-1);
+			palindrome(word.substring(begin, end), k, begin, end-1);
 			//if(begin == end -1) return result1;
-			int result2 = palindrome(word.substring(begin+1, end+1), k, begin, end-1);
-			if(result1 >= result2) result = result1;
-			else result = result2;
-			
-			return result;
+			palindrome(word.substring(begin+1, end+1), k, begin, end-1);
 		}
 	}
 }
